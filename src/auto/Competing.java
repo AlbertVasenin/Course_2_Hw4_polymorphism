@@ -2,9 +2,9 @@ package auto;
 
 public interface Competing {
 
-  String pitStop();
+  void pitStop();
 
-  String bestTimeLap();
+  void getBestTimeLap();
 
-  int maxSpeed();
+  void getMaxSpeed();
 }
