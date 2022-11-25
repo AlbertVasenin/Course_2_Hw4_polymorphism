@@ -10,4 +10,8 @@ public class ValidateUtils {
   public static double validateEngine(double value) {
     return value <= 0 ? 1.6 : value;
   }
+
+  public static int validateExperience(int value) {
+    return Math.max(value, 0);
+  }
 }

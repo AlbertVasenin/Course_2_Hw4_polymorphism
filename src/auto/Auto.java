@@ -35,6 +35,15 @@ public abstract class Auto {
   public abstract void endMoving();
 
   @Override
+  public String toString() {
+    return "Auto{" +
+        "brand='" + brand + '\'' +
+        ", model='" + model + '\'' +
+        ", volumeEngine=" + volumeEngine +
+        '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
