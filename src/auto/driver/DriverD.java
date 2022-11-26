@@ -23,8 +23,8 @@ public class DriverD<D extends Bus> extends Driver {
     System.out.println("Водитель " + getFullName() + " заправляется");
   }
 
-  public void toStringForStart(D Car) {
+  public void toStringForStart(D car) {
     System.out.printf("Водитель: %s, автомобиль %s %s, будет участвовать в заезде\n", getFullName(),
-        Car.getBrand(), Car.getModel());
+        car.getBrand(), car.getModel());
   }
 }
