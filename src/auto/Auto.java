@@ -34,6 +34,8 @@ public abstract class Auto {
 
   public abstract void endMoving();
 
+  public abstract void printInfoAuto();
+
   @Override
   public String toString() {
     return "Auto{" +
