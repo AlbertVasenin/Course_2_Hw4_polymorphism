@@ -1,3 +1,4 @@
+import auto.Auto;
 import auto.BodyType;
 import auto.Bus;
 import auto.Capacity;
@@ -7,22 +8,23 @@ import auto.Truck;
 import auto.driver.DriverB;
 import auto.driver.DriverC;
 import auto.driver.DriverD;
+import data.Data;
 
 public class Main {
 
   public static void main(String[] args) {
     Car lada = new Car("Лада", "Веста", 1.8, BodyType.SEDAN);
-    Car kia = new Car("Киа", "Рио", 1.6,BodyType.SEDAN);
-    Car skoda = new Car("Шкода", "Рапид", 1.4,BodyType.STATION_WAGON);
-    Car mazda = new Car("Мазда", "3", 1.6,BodyType.SEDAN);
+    Car kia = new Car("Киа", "Рио", 1.6, BodyType.SEDAN);
+    Car skoda = new Car("Шкода", "Рапид", 1.4, BodyType.STATION_WAGON);
+    Car mazda = new Car("Мазда", "3", 1.6, BodyType.SEDAN);
     Truck kamaz = new Truck("КамАЗ", "65115", 3.0, LoadType.N1);
-    Truck kamazTwo = new Truck("КамАЗ", "6580", 11.8,LoadType.N2);
-    Truck kamazThree = new Truck("КамАЗ", "43118", 6.0,null);
-    Truck kamazFour = new Truck("КамАЗ", "45143", 4.0,LoadType.N3);
+    Truck kamazTwo = new Truck("КамАЗ", "6580", 11.8, LoadType.N2);
+    Truck kamazThree = new Truck("КамАЗ", "43118", 6.0, null);
+    Truck kamazFour = new Truck("КамАЗ", "45143", 4.0, LoadType.N3);
     Bus bau = new Bus("BAU", "Street Line", 3.2, Capacity.AVERAGE);
-    Bus paz = new Bus("ПАЗ", "3237", 4.5,Capacity.SMALL);
-    Bus jac = new Bus("JAC", "HK6105G", 6.5,Capacity.BIG);
-    Bus vdl = new Bus("VDL", "Citea LLE-120", 6.0,Capacity.AVERAGE);
+    Bus paz = new Bus("ПАЗ", "3237", 4.5, Capacity.SMALL);
+    Bus jac = new Bus("JAC", "HK6105G", 6.5, Capacity.BIG);
+    Bus vdl = new Bus("VDL", "Citea LLE-120", 6.0, Capacity.AVERAGE);
     DriverB<Car> fedor = new DriverB<>("Федор Лагунов Викторович", true, 12);
     DriverC<Truck> alexey = new DriverC<>("Алексей Николаевич Шумахер", true, 13);
     DriverD<Bus> max = new DriverD<>("Максим Сергеевич Копылов", true, 10);
@@ -55,8 +57,30 @@ public class Main {
     kamazFour.printInfoAuto();
     bau.printInfoAuto();
     kamazThree.printInfoAuto();
-
+    separator();
+    boolean checkLogPas = Data.checkData("a23l_bert", "AbcDaf", "AbcDaf");
+    if (checkLogPas) {
+      System.out.println("Данные введены верно");
+    } else {
+      System.out.println("Данные введены неверно");
+    }
+    separator();
+    printInfo(lada, kia, skoda, mazda, kamaz, kamazTwo, kamazThree, kamazFour, bau, jac, vdl, paz);
   }
+
+  public static void printInfo(Auto... auto) {
+    for (Auto autos : auto) {
+      try {
+        if (!autos.getDiagnosed()) {
+          throw new RuntimeException(
+              "Транспорт " + autos.getBrand() + " " + autos.getModel() + " не прошел диагностику");
+        }
+      } catch (RuntimeException e) {
+        System.out.println(e.getMessage());
+      }
+    }
+  }
+
 
   public static void separator() {
     System.out.println(

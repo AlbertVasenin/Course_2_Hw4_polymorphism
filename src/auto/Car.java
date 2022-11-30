@@ -35,6 +35,11 @@ public class Car extends Auto implements Competing {
   }
 
   @Override
+  public boolean getDiagnosed() {
+    return Math.random() > 0.70;
+  }
+
+  @Override
   public String toString() {
     return "Класс: " + getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
         + ", объем двигателя: " + getVolumeEngine() + " литров." + getBodyType();

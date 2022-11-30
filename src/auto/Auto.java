@@ -36,6 +36,8 @@ public abstract class Auto {
 
   public abstract void printInfoAuto();
 
+  public abstract boolean getDiagnosed();
+
   @Override
   public String toString() {
     return "Auto{" +

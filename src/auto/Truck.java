@@ -37,6 +37,11 @@ public class Truck extends Auto implements Competing {
   }
 
   @Override
+  public boolean getDiagnosed() {
+    return Math.random() > 0.75;
+  }
+
+  @Override
   public String toString() {
     return "Класс: " + getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
         + ", объем двигателя: " + getVolumeEngine() + " литров." + getLoadType();

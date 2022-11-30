@@ -37,6 +37,13 @@ public class Bus extends Auto implements Competing {
   }
 
   @Override
+  public boolean getDiagnosed() {
+    System.out.println(
+        "Автобусу " + getBrand() + " " + getModel() + " диагностику проходить не нужно.");
+    return true;
+  }
+
+  @Override
   public String toString() {
     return "Класс: " + getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
         + ", объем двигателя: " + getVolumeEngine() + " литров." + getCapacity();

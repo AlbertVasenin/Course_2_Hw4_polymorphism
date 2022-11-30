@@ -10,7 +10,7 @@ public abstract class Driver {
 
   public Driver(String fullName, boolean drivingLicense, int experience) {
     this.fullName = ValidateUtils.validateString(fullName);
-    this.drivingLicense = drivingLicense;
+    setDrivingLicense(drivingLicense);
     this.experience = ValidateUtils.validateExperience(experience);
   }
 
@@ -29,7 +29,11 @@ public abstract class Driver {
   }
 
   public void setDrivingLicense(boolean drivingLicense) {
-    this.drivingLicense = drivingLicense;
+    if (!drivingLicense) {
+      throw new IllegalArgumentException("У водителя должны быть права на эту категорию");
+    } else {
+      this.drivingLicense = true;
+    }
   }
 
   public int getExperience() {
