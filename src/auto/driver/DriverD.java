@@ -2,7 +2,7 @@ package auto.driver;
 
 import auto.Bus;
 
-public class DriverD<D extends Bus> extends Driver {
+public class DriverD<D extends Bus> extends Driver{
 
   public DriverD(String fullName, boolean drivingLicense, int experience) {
     super(fullName, drivingLicense, experience);

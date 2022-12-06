@@ -43,8 +43,8 @@ public class Truck extends Auto implements Competing {
 
   @Override
   public String toString() {
-    return "Класс: " + getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
-        + ", объем двигателя: " + getVolumeEngine() + " литров." + getLoadType();
+    return getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
+        + ", объем двигателя: " + getVolumeEngine() + " литров." + getLoadType() + "\n";
   }
 
   @Override

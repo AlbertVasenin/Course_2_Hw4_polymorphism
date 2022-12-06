@@ -41,8 +41,8 @@ public class Car extends Auto implements Competing {
 
   @Override
   public String toString() {
-    return "Класс: " + getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
-        + ", объем двигателя: " + getVolumeEngine() + " литров." + getBodyType();
+    return getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
+        + ", объем двигателя: " + getVolumeEngine() + " литров." + getBodyType() + "\n";
   }
 
   @Override

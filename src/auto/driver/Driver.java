@@ -2,7 +2,7 @@ package auto.driver;
 
 import auto.ValidateUtils;
 
-public abstract class Driver {
+public abstract class Driver<T> {
 
   private final String fullName;
   private boolean drivingLicense;

@@ -45,8 +45,8 @@ public class Bus extends Auto implements Competing {
 
   @Override
   public String toString() {
-    return "Класс: " + getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
-        + ", объем двигателя: " + getVolumeEngine() + " литров." + getCapacity();
+    return getClass() + ", марка: " + getBrand() + ", модель: " + getModel()
+        + ", объем двигателя: " + getVolumeEngine() + " литров." + getCapacity() + "\n";
   }
 
   @Override

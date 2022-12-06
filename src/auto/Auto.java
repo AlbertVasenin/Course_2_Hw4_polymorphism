@@ -1,17 +1,51 @@
 package auto;
 
+import Sponsor.Sponsor;
+import auto.driver.Driver;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import mechanics.Mechanics;
 
 public abstract class Auto {
 
   private final String brand;
   private final String model;
   private double volumeEngine;
+  private final List<Sponsor> sponsors = new ArrayList<>();
+  private final List<Mechanics<?>> mechanics = new ArrayList<>();
+  private final List<Driver<?>> drivers = new ArrayList<>();
+
 
   public Auto(String brand, String model, double volumeEngine) {
     this.brand = ValidateUtils.validateString(brand);
     this.model = ValidateUtils.validateString(model);
     this.volumeEngine = setVolumeEngine(volumeEngine);
+  }
+
+  public List<Sponsor> getSponsors() {
+    return sponsors;
+  }
+
+  public List<Mechanics<?>> getMechanics() {
+    return mechanics;
+  }
+
+  public List<Driver<?>> getDrivers() {
+    return drivers;
+  }
+
+  public void addSponsor(Sponsor... sponsors) {
+    this.sponsors.addAll(Arrays.asList(sponsors));
+  }
+
+  public void addMechanics(Mechanics<?>... mechanics) {
+    this.mechanics.addAll(Arrays.asList(mechanics));
+  }
+
+  public void addDrivers(Driver<?>... drivers) {
+    this.drivers.addAll(Arrays.asList(drivers));
   }
 
   public String getBrand() {
@@ -44,7 +78,11 @@ public abstract class Auto {
         "brand='" + brand + '\'' +
         ", model='" + model + '\'' +
         ", volumeEngine=" + volumeEngine +
+        ", sponsors=" + sponsors +
+        ", mechanics=" + mechanics +
+        ", drivers=" + drivers +
         '}';
+
   }
 
   @Override

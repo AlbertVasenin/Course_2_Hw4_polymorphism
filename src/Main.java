@@ -1,3 +1,4 @@
+import Sponsor.Sponsor;
 import auto.Auto;
 import auto.BodyType;
 import auto.Bus;
@@ -9,6 +10,7 @@ import auto.driver.DriverB;
 import auto.driver.DriverC;
 import auto.driver.DriverD;
 import data.Data;
+import mechanics.Mechanics;
 
 public class Main {
 
@@ -66,6 +68,31 @@ public class Main {
     }
     separator();
     printInfo(lada, kia, skoda, mazda, kamaz, kamazTwo, kamazThree, kamazFour, bau, jac, vdl, paz);
+    separator();
+    Sponsor gaz = new Sponsor("Газпром", 1_000_000);
+    Sponsor vtb = new Sponsor("ВТБ", 2_000_000);
+    Mechanics<Car> sergey = new Mechanics<>("Сергей", "Скоробогатько", "Балпетрол");
+    Mechanics<Truck> alex = new Mechanics<>("Алексей", "Веселый", "Авто-Сервис");
+    lada.addDrivers(new DriverB<Car>("Михаил", true, 12));
+    kia.addDrivers(new DriverB<Car>("Петр Шмидт",true,15));
+    kamaz.addDrivers(new DriverC<Truck>(" Алена Иванова", true, 14));
+    lada.addSponsor(gaz);
+    kia.addSponsor(gaz);
+    kia.addMechanics(sergey);
+    kamaz.addSponsor(vtb);
+    kamaz.addMechanics(alex);
+    lada.addMechanics(sergey);
+    printAuto(lada,kia,kamaz);
+    sergey.serviceAuto();
+
+  }
+
+  public static void printAuto(Auto... auto) {
+    for (Auto autos : auto) {
+      System.out.println(
+          "Авто:" + " " + autos.getBrand() + " " + autos.getModel() + " " + autos.getDrivers() + " "
+              + autos.getMechanics() + " " + autos.getSponsors());
+    }
   }
 
   public static void printInfo(Auto... auto) {
