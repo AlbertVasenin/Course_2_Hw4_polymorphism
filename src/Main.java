@@ -10,9 +10,19 @@ import auto.driver.DriverB;
 import auto.driver.DriverC;
 import auto.driver.DriverD;
 import data.Data;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 import mechanics.Mechanics;
+import service.station.ServiceStation;
 
 public class Main {
+
+  private static final List<String> FULL_NAME = List.of("Елена Анатольевна", "Иван Геннадьевич",
+      "Петр Анатольевич", "Евгений Александрович", "Николай Эдуардович", "Иван Леонидович",
+      "Максим Сергеевич", "Александр Витальевич", "Ольга Николаевна", "Маргарита Леонидовна");
 
   public static void main(String[] args) {
     Car lada = new Car("Лада", "Веста", 1.8, BodyType.SEDAN);
@@ -74,7 +84,7 @@ public class Main {
     Mechanics<Car> sergey = new Mechanics<>("Сергей", "Скоробогатько", "Балпетрол");
     Mechanics<Truck> alex = new Mechanics<>("Алексей", "Веселый", "Авто-Сервис");
     lada.addDrivers(new DriverB<Car>("Михаил", true, 12));
-    kia.addDrivers(new DriverB<Car>("Петр Шмидт",true,15));
+    kia.addDrivers(new DriverB<Car>("Петр Шмидт", true, 15));
     kamaz.addDrivers(new DriverC<Truck>(" Алена Иванова", true, 14));
     lada.addSponsor(gaz);
     kia.addSponsor(gaz);
@@ -82,9 +92,82 @@ public class Main {
     kamaz.addSponsor(vtb);
     kamaz.addMechanics(alex);
     lada.addMechanics(sergey);
-    printAuto(lada,kia,kamaz);
-    sergey.serviceAuto();
+    printAuto(lada, kia, kamaz);
+    List<Auto> auto = List.of(lada, kia, skoda, mazda, kamaz, kamazTwo, kamazThree, kamazFour, bau,
+        jac, vdl, paz);
+    ServiceStation serviceStation = new ServiceStation();
+    serviceStation.addAutoStationCar(lada);
+    serviceStation.getService();
+    serviceStation.addAutoStationCar(kia);
+    serviceStation.getService();
+    serviceStation.addAutoStationCar(mazda);
+    serviceStation.getService();
+    serviceStation.addAutoStationTruck(kamaz);
+    serviceStation.getService();
+    separator();
+    Queue<String> queue = new ArrayDeque<>(5);
+    Queue<String> queueTwo = new ArrayDeque<>(5);
+    randomQueue(queue);
+    System.out.println("Очередь первая: " + queue);
+    randomQueue(queueTwo);
+    System.out.println("Очередь вторая: " + queueTwo);
+    separator();
+    addHuman("Ангелина Владиславовна", queue, queueTwo);
+    System.out.println("Очередь первая: " + queue);
+    System.out.println("Очередь вторая: " + queueTwo);
+    separator();
+    delete(queue, queueTwo);
+    System.out.println("Очередь первая: " + queue);
+    System.out.println("Очередь вторая: " + queueTwo);
+    separator();
+    example();
 
+  }
+
+  public static void example() {
+    List<List<String>> biDemArrList = new ArrayList<>();
+    for (int i = 0; i < 8; i++) {
+      biDemArrList.add(i, new ArrayList<>());
+      for (int j = 0; j < 8; j++) {
+        biDemArrList.get(i).add(j, ((i + j) % 2 == 1 ? "●" : "◯"));
+      }
+    }
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        System.out.print(biDemArrList.get(i).get(j) + " ");
+      }
+      System.out.println();
+    }
+  }
+
+  public static void delete(Queue<String> queue, Queue<String> queueTwo) {
+    Random random = new Random();
+    if (random.nextBoolean()) {
+      queue.poll();
+    } else {
+      queueTwo.poll();
+    }
+  }
+
+  private static void addHuman(String name, Queue<String> queue, Queue<String> queueTwo) {
+    if (queue.size() == 5 && queueTwo.size() == 5) {
+      System.out.println("Галя, бегом на кассу!");
+      return;
+    }
+    if (queue.size() > queueTwo.size()) {
+      queueTwo.offer(name);
+    }
+    if (queue.size() < queueTwo.size()) {
+      queue.offer(name);
+    }
+  }
+
+  public static void randomQueue(Queue<String> queue) {
+    Random random = new Random();
+    int size = random.nextInt(6);
+    for (int i = 0; i < size; i++) {
+      queue.offer(FULL_NAME.get(random.nextInt(FULL_NAME.size())));
+    }
   }
 
   public static void printAuto(Auto... auto) {

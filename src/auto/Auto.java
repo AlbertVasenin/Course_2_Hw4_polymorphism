@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import mechanics.Mechanics;
 
-public abstract class Auto {
+public abstract class Auto<T> {
 
   private final String brand;
   private final String model;
@@ -93,7 +93,7 @@ public abstract class Auto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Auto auto = (Auto) o;
+    Auto<T> auto = (Auto<T>) o;
     return Double.compare(auto.volumeEngine, volumeEngine) == 0 && Objects.equals(
         brand, auto.brand) && Objects.equals(model, auto.model);
   }

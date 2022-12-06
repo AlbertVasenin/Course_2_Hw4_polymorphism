@@ -1,7 +1,5 @@
 package auto;
 
-import java.util.SortedMap;
-
 public class Car extends Auto implements Competing {
 
   private final BodyType bodyType;
