@@ -1,12 +1,23 @@
 package auto;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import mechanics.Mechanics;
+
 public class Car extends Auto implements Competing {
 
+  private final Set<Mechanics> mechanics = new HashSet<>();
   private final BodyType bodyType;
 
   public Car(String brand, String model, double volumeEngine, BodyType bodyType) {
     super(brand, model, volumeEngine);
     this.bodyType = bodyType;
+  }
+
+  @Override
+  public Set<Mechanics> getMechanics() {
+    return mechanics;
   }
 
   public BodyType getBodyType() {
@@ -61,5 +72,25 @@ public class Car extends Auto implements Competing {
     System.out.printf("Максимальная скорость круга у автомобиля %s %s: %.0f км/ч\n", getBrand(),
         getModel(), (100
             + Math.random() * (100)));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
+    Car car = (Car) o;
+    return Objects.equals(mechanics, car.mechanics) && bodyType == car.bodyType;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), mechanics, bodyType);
   }
 }

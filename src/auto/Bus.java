@@ -1,7 +1,13 @@
 package auto;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import mechanics.Mechanics;
+
 public class Bus extends Auto implements Competing {
 
+  private final Set<Mechanics> mechanics = new HashSet<>();
   private final Capacity capacity;
 
   public Bus(String brand, String model, double volumeEngine, Capacity capacity) {
@@ -67,5 +73,25 @@ public class Bus extends Auto implements Competing {
     System.out.printf("Максимальная скорость круга автобуса %s %s: %.0f км/ч\n", getBrand(),
         getModel(), (100
             + Math.random() * (100)));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
+    Bus bus = (Bus) o;
+    return Objects.equals(mechanics, bus.mechanics) && capacity == bus.capacity;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), mechanics, capacity);
   }
 }

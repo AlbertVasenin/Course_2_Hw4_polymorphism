@@ -1,7 +1,7 @@
 package mechanics;
 
-import auto.Auto;
 import auto.ValidateUtils;
+import java.util.Objects;
 
 public class Mechanics<T> {
 
@@ -54,5 +54,23 @@ public class Mechanics<T> {
   public String toString() {
     return "Механик: " + name + " " + secondName + " " +
         ", компания " + company;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Mechanics<?> mechanics = (Mechanics<?>) o;
+    return Objects.equals(name, mechanics.name) && Objects.equals(secondName,
+        mechanics.secondName) && Objects.equals(company, mechanics.company);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, secondName, company);
   }
 }

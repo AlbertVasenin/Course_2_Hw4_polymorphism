@@ -2,10 +2,9 @@ package auto;
 
 import Sponsor.Sponsor;
 import auto.driver.Driver;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import mechanics.Mechanics;
 
 public abstract class Auto<T> {
@@ -13,9 +12,9 @@ public abstract class Auto<T> {
   private final String brand;
   private final String model;
   private double volumeEngine;
-  private final List<Sponsor> sponsors = new ArrayList<>();
-  private final List<Mechanics<?>> mechanics = new ArrayList<>();
-  private final List<Driver<?>> drivers = new ArrayList<>();
+  private final Set<Sponsor> sponsors = new HashSet<>();
+  private final Set<Mechanics<?>> mechanics = new HashSet<>();
+  private final Set<Driver<?>> drivers = new HashSet<>();
 
 
   public Auto(String brand, String model, double volumeEngine) {
@@ -24,28 +23,28 @@ public abstract class Auto<T> {
     this.volumeEngine = setVolumeEngine(volumeEngine);
   }
 
-  public List<Sponsor> getSponsors() {
+  public Set<Sponsor> getSponsors() {
     return sponsors;
   }
 
-  public List<Mechanics<?>> getMechanics() {
+  public Set<Mechanics<?>> getMechanics() {
     return mechanics;
   }
 
-  public List<Driver<?>> getDrivers() {
+  public Set<Driver<?>> getDrivers() {
     return drivers;
   }
 
-  public void addSponsor(Sponsor... sponsors) {
-    this.sponsors.addAll(Arrays.asList(sponsors));
+  public void addSponsor(Sponsor sponsors) {
+    this.sponsors.add(sponsors);
   }
 
-  public void addMechanics(Mechanics<?>... mechanics) {
-    this.mechanics.addAll(Arrays.asList(mechanics));
+  public void addMechanics(Mechanics<?> mechanics) {
+    this.mechanics.add(mechanics);
   }
 
-  public void addDrivers(Driver<?>... drivers) {
-    this.drivers.addAll(Arrays.asList(drivers));
+  public void addDrivers(Driver<?> drivers) {
+    this.drivers.add(drivers);
   }
 
   public String getBrand() {
@@ -73,19 +72,6 @@ public abstract class Auto<T> {
   public abstract boolean getDiagnosed();
 
   @Override
-  public String toString() {
-    return "Auto{" +
-        "brand='" + brand + '\'' +
-        ", model='" + model + '\'' +
-        ", volumeEngine=" + volumeEngine +
-        ", sponsors=" + sponsors +
-        ", mechanics=" + mechanics +
-        ", drivers=" + drivers +
-        '}';
-
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -93,9 +79,11 @@ public abstract class Auto<T> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Auto<T> auto = (Auto<T>) o;
+    Auto<?> auto = (Auto<?>) o;
     return Double.compare(auto.volumeEngine, volumeEngine) == 0 && Objects.equals(
-        brand, auto.brand) && Objects.equals(model, auto.model);
+        brand, auto.brand) && Objects.equals(model, auto.model) && Objects.equals(
+        sponsors, auto.sponsors) && Objects.equals(mechanics, auto.mechanics)
+        && Objects.equals(drivers, auto.drivers);
   }
 
   @Override

@@ -1,6 +1,7 @@
 package Sponsor;
 
 import auto.ValidateUtils;
+import java.util.Objects;
 
 public class Sponsor {
 
@@ -35,7 +36,26 @@ public class Sponsor {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Sponsor sponsor = (Sponsor) o;
+    return Double.compare(sponsor.sumSupport, sumSupport) == 0 && Objects.equals(
+        name, sponsor.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, sumSupport);
+  }
+
+  @Override
   public String toString() {
-    return String.format("Спонсор: %s на сумму %.2f рублей", getName(), getSumSupport());
+    return "Спонсор: " + name + ", сумма спонсора: " + sumSupport +
+        " рублей";
   }
 }

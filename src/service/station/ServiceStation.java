@@ -3,12 +3,12 @@ package service.station;
 import auto.Auto;
 import auto.Car;
 import auto.Truck;
-import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class ServiceStation {
 
-  private final Queue<Auto> autos = new ArrayDeque<>();
+  private final Queue<Auto> autos = new LinkedList<>();
 
   private void addAutoStationService(Auto auto) {
     autos.offer(auto);
