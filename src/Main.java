@@ -10,6 +10,8 @@ import auto.driver.DriverB;
 import auto.driver.DriverC;
 import auto.driver.DriverD;
 import data.Data;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,6 +21,8 @@ import java.util.Random;
 import java.util.Set;
 import mechanics.Mechanics;
 import multiplication.table.MultiplicationTable;
+import passport.Passport;
+import passport.PassportOffice;
 import service.station.ServiceStation;
 
 public class Main {
@@ -139,7 +143,30 @@ public class Main {
       multiplicationTables.add(multiplicationTable);
       System.out.println(multiplicationTable);
     }
+    separator();
 
+    PassportOffice passportOffice = new PassportOffice(new HashSet<>());
+    Passport passport = new Passport("3223465567", "Джек", "Воробей", "Батькович",
+        LocalDate.of(2000,
+            Month.AUGUST, 15));
+    Passport passportTwo = new Passport("3223465567", "Джек", "Ричар", "Батькович",
+        LocalDate.of(1990,
+            Month.JANUARY, 10));
+    Passport passportThree = new Passport("4563468569", "Карабас", "Барабас", "Батькович",
+        LocalDate.of(1980,
+            Month.DECEMBER, 5));
+    Passport passportFour = new Passport("1769568462", "Кощей", "Бессмертный", "Батькович",
+        LocalDate.of(1850,
+            Month.JUNE, 23));
+    passportOffice.addPassport(passport);
+    passportOffice.addPassport(passportTwo);
+    passportOffice.addPassport(passportThree);
+    passportOffice.addPassport(passportFour);
+    System.out.println(passportOffice);
+
+    passportOffice.addPassport(new Passport("3427465861", "Ричард", "Непреклонный", "Батькович",
+        LocalDate.of(1989, Month.NOVEMBER, 11)));
+    System.out.println(passportOffice);
 
   }
 
