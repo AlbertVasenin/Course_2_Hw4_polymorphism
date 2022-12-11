@@ -70,6 +70,18 @@ public abstract class Auto<T> {
   public abstract void printInfoAuto();
 
   public abstract boolean getDiagnosed();
+  public static void getInfoAboutDiagnosticAutos(Auto... auto) {
+    for (Auto autos : auto) {
+      try {
+        if (!autos.getDiagnosed()) {
+          throw new RuntimeException(
+              "Транспорт " + autos.getBrand() + " " + autos.getModel() + " не прошел диагностику");
+        }
+      } catch (RuntimeException e) {
+        System.out.println(e.getMessage());
+      }
+    }
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -88,6 +100,16 @@ public abstract class Auto<T> {
 
   @Override
   public int hashCode() {
-    return Objects.hash(brand, model, volumeEngine);
+    return Objects.hash(brand, model, volumeEngine, sponsors, mechanics, drivers);
+  }
+
+  public static void toStringInfoAuto(Auto...auto) {
+    for (Auto autos : auto) {
+      System.out.println("Авто: " + autos.getBrand() + " " + autos.getModel() + " " +
+          ", объем двигателя: " + autos.getVolumeEngine() +
+          ", спонсоры: " + autos.getSponsors() +
+          ", механики: " + autos.getMechanics() +
+          ", водители:" + autos.getDrivers());
+    }
   }
 }
