@@ -1,17 +1,50 @@
 package auto;
 
+import Sponsor.Sponsor;
+import auto.driver.Driver;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import mechanics.Mechanics;
 
-public abstract class Auto {
+public abstract class Auto<T> {
 
   private final String brand;
   private final String model;
   private double volumeEngine;
+  private final Set<Sponsor> sponsors = new HashSet<>();
+  private final Set<Mechanics<?>> mechanics = new HashSet<>();
+  private final Set<Driver<?>> drivers = new HashSet<>();
+
 
   public Auto(String brand, String model, double volumeEngine) {
     this.brand = ValidateUtils.validateString(brand);
     this.model = ValidateUtils.validateString(model);
     this.volumeEngine = setVolumeEngine(volumeEngine);
+  }
+
+  public Set<Sponsor> getSponsors() {
+    return sponsors;
+  }
+
+  public Set<Mechanics<?>> getMechanics() {
+    return mechanics;
+  }
+
+  public Set<Driver<?>> getDrivers() {
+    return drivers;
+  }
+
+  public void addSponsor(Sponsor sponsors) {
+    this.sponsors.add(sponsors);
+  }
+
+  public void addMechanics(Mechanics<?> mechanics) {
+    this.mechanics.add(mechanics);
+  }
+
+  public void addDrivers(Driver<?> drivers) {
+    this.drivers.add(drivers);
   }
 
   public String getBrand() {
@@ -34,13 +67,20 @@ public abstract class Auto {
 
   public abstract void endMoving();
 
-  @Override
-  public String toString() {
-    return "Auto{" +
-        "brand='" + brand + '\'' +
-        ", model='" + model + '\'' +
-        ", volumeEngine=" + volumeEngine +
-        '}';
+  public abstract void printInfoAuto();
+
+  public abstract boolean getDiagnosed();
+  public static void getInfoAboutDiagnosticAutos(Auto... auto) {
+    for (Auto autos : auto) {
+      try {
+        if (!autos.getDiagnosed()) {
+          throw new RuntimeException(
+              "Транспорт " + autos.getBrand() + " " + autos.getModel() + " не прошел диагностику");
+        }
+      } catch (RuntimeException e) {
+        System.out.println(e.getMessage());
+      }
+    }
   }
 
   @Override
@@ -51,13 +91,25 @@ public abstract class Auto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Auto auto = (Auto) o;
+    Auto<?> auto = (Auto<?>) o;
     return Double.compare(auto.volumeEngine, volumeEngine) == 0 && Objects.equals(
-        brand, auto.brand) && Objects.equals(model, auto.model);
+        brand, auto.brand) && Objects.equals(model, auto.model) && Objects.equals(
+        sponsors, auto.sponsors) && Objects.equals(mechanics, auto.mechanics)
+        && Objects.equals(drivers, auto.drivers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(brand, model, volumeEngine);
+    return Objects.hash(brand, model, volumeEngine, sponsors, mechanics, drivers);
+  }
+
+  public static void toStringInfoAuto(Auto...auto) {
+    for (Auto autos : auto) {
+      System.out.println("Авто: " + autos.getBrand() + " " + autos.getModel() + " " +
+          ", объем двигателя: " + autos.getVolumeEngine() +
+          ", спонсоры: " + autos.getSponsors() +
+          ", механики: " + autos.getMechanics() +
+          ", водители:" + autos.getDrivers());
+    }
   }
 }

@@ -1,8 +1,9 @@
 package auto.driver;
 
 import auto.ValidateUtils;
+import java.util.Objects;
 
-public abstract class Driver {
+public abstract class Driver<T> {
 
   private final String fullName;
   private boolean drivingLicense;
@@ -10,7 +11,7 @@ public abstract class Driver {
 
   public Driver(String fullName, boolean drivingLicense, int experience) {
     this.fullName = ValidateUtils.validateString(fullName);
-    this.drivingLicense = drivingLicense;
+    setDrivingLicense(drivingLicense);
     this.experience = ValidateUtils.validateExperience(experience);
   }
 
@@ -29,7 +30,11 @@ public abstract class Driver {
   }
 
   public void setDrivingLicense(boolean drivingLicense) {
-    this.drivingLicense = drivingLicense;
+    if (!drivingLicense) {
+      throw new IllegalArgumentException("У водителя должны быть права на эту категорию");
+    } else {
+      this.drivingLicense = true;
+    }
   }
 
   public int getExperience() {
@@ -42,9 +47,25 @@ public abstract class Driver {
 
   @Override
   public String toString() {
-    return "Водитель: " + fullName +
-        ", наличие прав " + drivingLicense +
-        ", опыт " + experience +
-        " лет";
+    return "Водитель: " + fullName + ", наличие прав " + drivingLicense + ", опыт " + experience
+        + " лет";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Driver<?> driver = (Driver<?>) o;
+    return drivingLicense == driver.drivingLicense && experience == driver.experience
+        && Objects.equals(fullName, driver.fullName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullName, drivingLicense, experience);
   }
 }
